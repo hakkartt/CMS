@@ -1,0 +1,12 @@
+n Exercise 1, is it the correct approach to do (in order):
+1) Calculate sum of sales for 500 steps 
+2) Simulate the 500 steps, for example, 100 times 
+-> that is, repeat part 1) 100 times.
+3) Calculate the average of all sales for these 100 simulations
+4) Plot the histogram for all different simulations.
+
+Kavya: That is the correct approach.
+
+It will be seen that the starting mood will affect a lot.
+
+1000 simulations is enough

@@ -1,0 +1,63 @@
+def lsdfRadixSort(a: Array[Int]): Unit = {
+    val N = a.length
+    if(N <= 1) return
+    
+    val k = 256
+    var a2 = a.clone()
+    var cnt = Array.ofDim[Int](k)
+    var x = 0
+
+    // Sort the array based on the desired N=8 bits
+    def sortN(arr: Array[Int]) = {
+      
+      val result = Array.ofDim[Int](N)
+      var i = 0
+      while (i < N) {
+        cnt(((arr(i) >> (x * 8)) & 0xff)) += 1
+        i += 1
+        
+      }
+      
+      // initializing i
+      i = 0
+      // the count array to indexed array (cumulative adding)
+      var c = 0
+      while (i < k) {
+        val cur = cnt(i)
+        cnt(i) = c
+        c += cur
+        i += 1
+      }
+      
+      // initializing i
+      i = 0
+      // iterate
+      while (i < N) {
+        result(cnt((arr(i) >> (x * 8)) & 0xff)) = arr(i)
+        cnt((arr(i) >> (x * 8)) & 0xff) += 1
+        i += 1
+      }
+
+      // initialize i, again
+      i = 0
+      // initialize the count array
+      while (i < 256) {
+        cnt(i) = 0
+        i += 1
+      }
+      a2 = result
+    }
+
+    // Checking that we go through all the required bits.
+    while (x < 4) {
+      sortN(a2)
+      x += 1
+    }
+
+    // Finally, set the argumet array to match the generated sorted array
+    var i = 0
+    while (i < N) {
+      a(i) = a2(i)
+      i += 1
+    }
+  }
